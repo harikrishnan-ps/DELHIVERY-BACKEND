@@ -27,10 +27,12 @@ pipeline {
         }
  
         stage('Create Network') {
-            steps {
-                bat "docker network create %NETWORK% 2>nul"
-            }
-        }
+    steps {
+        bat """
+        docker network inspect %NETWORK% >nul 2>&1 || docker network create %NETWORK%
+        """
+    }
+}
  
         stage('Start MySQL') {
             steps {
