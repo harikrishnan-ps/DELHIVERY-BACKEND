@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: delhivery-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: delhivery_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  api:
+    build: .
+    container_name: delhivery-api-server
+    restart: always
+    ports:
+      - "5207:8080"
+    env_file:
+      - .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+
+  frontend:
+    build: ../delhivery-clone
+    container_name: delhivery-frontend
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+
+volumes:
+  mysql_data:
