@@ -85,7 +85,7 @@ pipeline {
                     -e Brevo__ApiKey=YOUR_BREVO_API_KEY ^
                     -e Brevo__SenderEmail=22cs346@mgits.ac.in ^
                     -e Brevo__SenderName="Delhivery Clone" ^
-                    -p 5095:8080 ^
+                    -p 5207:8080 ^
                     -v api-media:/app/SimpleStorage ^
                     %IMAGE%
                 """
